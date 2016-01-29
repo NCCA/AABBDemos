@@ -193,7 +193,9 @@ private :
     /// @brief transformation stack for the gl transformations etc
     //----------------------------------------------------------------------------------------------------------------------
     ngl::Transformation m_transform;
-    bool m_active=true;
+    bool m_active=false;
+    enum class RotMode : char {XROT,YROT,ZROT,ALL};
+    RotMode m_rotMode=RotMode::XROT;
 
 };
 

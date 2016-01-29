@@ -43,7 +43,7 @@ NGLScene::NGLScene()
   m_activeWindow=Window::ALL;
   m_mouseX=0;
   m_mouseY=0;
-  setTitle("Multiple Views");
+  setTitle("Simple AABB Demo");
   m_width=this->size().width();
   m_height=this->size().height();
   std::cout<<m_width<<" "<<m_height<<"\n";
@@ -119,7 +119,7 @@ void NGLScene::initializeGL()
   // now we need to create this as a VAO so we can draw it
   m_mesh->createVAO();
   m_mesh->calcBoundingSphere();
-  m_meshAABB.reset(new MeshWithAABB(m_mesh));
+  m_meshAABB.reset(new MeshWithAABB(m_mesh.get()));
   startTimer(10);
 
 }
@@ -628,10 +628,13 @@ void NGLScene::keyPressEvent(QKeyEvent *_event)
   // show windowed
   case Qt::Key_Space : toggleWindow(); break;
   case Qt::Key_0 : m_active^=true; break;
+  case Qt::Key_1 : m_rotMode=RotMode::XROT; break;
+  case Qt::Key_2 : m_rotMode=RotMode::YROT; break;
+  case Qt::Key_3 : m_rotMode=RotMode::ZROT; break;
+  case Qt::Key_4 : m_rotMode=RotMode::ALL; break;
+
   default : break;
   }
-  // finally update the NGLScene and re-draw
-  //if (isExposed())
     update();
 }
 
@@ -639,10 +642,24 @@ void NGLScene::timerEvent(QTimerEvent *)
 {
   // draw the mesh
   static float rotXX=0.0f;
-  if(m_active)
-    ++rotXX;
-  m_transform.setRotation(rotXX,0,rotXX);
-
+  if(!m_active)
+    return;
+  ++rotXX;
+  switch(m_rotMode )
+  {
+  case RotMode::XROT :
+    m_transform.setRotation(rotXX,0,0);
+  break;
+  case RotMode::YROT :
+    m_transform.setRotation(0,rotXX,0);
+  break;
+  case RotMode::ZROT :
+    m_transform.setRotation(0,0,rotXX);
+  break;
+  case RotMode::ALL :
+    m_transform.setRotation(rotXX,rotXX,rotXX);
+  break;
+  }
   m_meshAABB->setTransform(m_transform);
   update();
 }
