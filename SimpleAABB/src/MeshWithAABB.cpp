@@ -30,10 +30,10 @@ MeshWithAABB::MeshWithAABB( ngl::Obj *_mesh)
 
 void MeshWithAABB::setTransform( ngl::Transformation &_t)
 {
-  auto transformedExtents=m_defaultExtents;
+  auto m_transformedExtents=m_defaultExtents;
   ngl::Mat4 tx=_t.getMatrix();
 
-  for(auto &v : transformedExtents)
+  for(auto &v : m_transformedExtents)
   {
     v=v*tx;
   }
@@ -44,7 +44,7 @@ void MeshWithAABB::setTransform( ngl::Transformation &_t)
   ngl::Real maxZ=0.0f;
   ngl::Real minZ=0.0f;
 
-  for(auto v : transformedExtents)
+  for(auto v : m_transformedExtents)
   {
     if     (v.m_x >maxX) { maxX=v.m_x; }
     else if(v.m_x <minX) { minX=v.m_x; }
