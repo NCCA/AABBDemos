@@ -19,7 +19,7 @@ CONFIG-=app_bundle
 # Auto include all .cpp files in the project src directory (can specifiy individually if required)
 SOURCES+= $$PWD/src/NGLScene.cpp \
 					$$PWD/src/main.cpp \
-					$$PWD/src/MeshWithAABB.cpp
+          $$PWD/src/MeshWithAABB.cpp
 # same for the .h files
 HEADERS+= $$PWD/include/NGLScene.h \
 					$$PWD/include/MeshWithAABB.h

@@ -1,12 +1,12 @@
-#ifndef MESHWITHAABB_H__
-#define MESHWITHAABB_H__
+#ifndef MESHWITHAABB_H_
+#define MESHWITHAABB_H_
 #include <array>
 #include <memory>
 #include <ngl/BBox.h>
 #include <ngl/Transformation.h>
 #include <ngl/Vec3.h>
 #include <ngl/Obj.h>
-
+#include <ngl/AbstractVAO.h>
 
 class MeshWithAABB
 {
@@ -26,7 +26,7 @@ class MeshWithAABB
     // calculate the extents of the tx and create bbox;
     void getExtents();
     void setBBox();
-    ngl::VertexArrayObject *m_vao=nullptr;
+ //   ngl::AbstractVAO *m_vao=nullptr;
 
 };
 
